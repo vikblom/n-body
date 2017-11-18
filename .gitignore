@@ -6,7 +6,7 @@ deps/deps.jl
 
 data
 *.gif
-
+*.txt
 
 # C/C++
 *.o

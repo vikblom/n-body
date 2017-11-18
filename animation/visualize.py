@@ -15,39 +15,32 @@ rcParams['toolbar'] = 'None'
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-#fig.set_facecolor('black')
+ax.set_xlim(-1,1)
+ax.set_ylim(-1,1)
+ax.set_zlim(-1,1)
 
-ax.set_xlim(-5,5)
-ax.set_ylim(-5,5)
-ax.set_zlim(-5,5)
+fig.set_facecolor('black')
+ax.patch.set_facecolor('black')
 
-points = ax.scatter([],[],[], s=1.0, c='b')
+points = ax.scatter([],[],[], s=1.0, c='w')
 
-N = 100
-
-mass = np.random.gamma(2.0, 1.0, N)
-
-x = np.random.normal(0, .1, N)
-y = np.random.normal(0, .1, N)
-z = np.random.normal(0, .1, N)
-vx = np.random.normal(0, .1, N)
-vy = np.random.normal(0, .1, N)
-vz = np.random.normal(0, .1, N)
-
+mass = np.fromstring(stdin.readline(), sep=" ")
 points.set_sizes(mass)
 
+def get_lines():
+    while stdin.readline(): #Skip time for now
+        x = np.fromstring(stdin.readline(), sep=" ")
+        y = np.fromstring(stdin.readline(), sep=" ")
+        z = np.fromstring(stdin.readline(), sep=" ")
+        yield x,y,z
+
 def update(data):
-    global x, y, z
-    x += vx
-    y += vy
-    z += vz
-    points._offsets3d = (x,y,z)
+    points._offsets3d = data
     return points,
 
-
 anim = FuncAnimation(fig, update,
-                     frames=500,
-                     interval=25,
+                     frames=get_lines,
+                     interval=30,
                      repeat=False,
                      blit=False)
 
