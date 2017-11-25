@@ -101,10 +101,10 @@ function main()
         map(z-> print(z," "),sys.pos[3,:])
         print("\n")
 
-        if i % 10 == 0
-            write(STDERR, string(i))
-            write(STDERR, "\n")
-        end
+        #if i % 10 == 0
+        #    write(STDERR, string(i))
+        #    write(STDERR, "\n")
+        #end
     end
 end
 
